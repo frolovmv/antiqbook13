@@ -1,0 +1,62 @@
+unit Unit3;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DBTables, DB, Grids, DBGrids, DBCtrls, Buttons;
+
+type
+  TForm3 = class(TForm)
+    Button1: TButton;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    Table1: TTable;
+    BitBtn1: TBitBtn;
+    Table2: TTable;
+    procedure Button1Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+Form3.Close;
+end;
+ //”ƒ¿À»“‹
+procedure TForm3.BitBtn1Click(Sender: TObject);
+var
+s,p:integer;
+begin
+Table1.Active:=True;
+Table2.Active:=True;
+
+s:=Table1.FieldByName('Snum').AsInteger;
+Table2.First;
+while not Table2.EOF do
+                   begin
+p:=Table2.FieldByName('Snum').AsInteger;
+
+if p=s then Table2.Delete;
+Table2.Next;
+                   end;
+                                           {if MessageDlg('”‰‡ÎËÚ¸',
+                                        mtConfirmation,[mbYes,mbNo],0)=mrYes
+                                                   then}
+Table1.Delete;
+
+Table2.Active:=False;
+end;
+
+
+end.
